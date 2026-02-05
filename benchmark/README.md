@@ -6,6 +6,23 @@ Each language implementation follows **exactly the same algorithm**, differing o
 
 ---
 
+## Handled Languages
+
+- Java
+- JavaScript
+- PHP
+- Python
+- Rust
+- TypeScript
+
+---
+
+## Requirements
+
+Follow this file requirements for each languages: [REQUIREMENTS.md](./docs/REQUIREMENTS.md)
+
+---
+
 ## What Is Being Benchmarked?
 
 The benchmark measures the time required to execute a **tight computational loop** that performs integer arithmetic.
