@@ -1,2 +1,17 @@
-# sandbox
-A playground repository for testing code, experiments, and small projects.
+# Sandbox
+
+A personal playground repository for experimenting with code, testing ideas, and prototyping projects.
+
+## Features
+
+- Quick testing environment
+- Experiment with different languages and frameworks
+- Safe space to try out new concepts
+
+## Usage
+
+Clone the repo and start experimenting:
+
+```bash
+git clone https://github.com/yourusername/sandbox.git
+```
