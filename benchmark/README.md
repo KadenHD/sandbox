@@ -8,12 +8,12 @@ Each language implementation follows **exactly the same algorithm**, differing o
 
 ## Handled Languages
 
-- Java
-- JavaScript
-- PHP
-- Python
-- Rust
-- TypeScript
+- [Java](./docs/REQUIREMENTS.md#Java)
+- [JavaScript](./docs/REQUIREMENTS.md#JavaScript)
+- [PHP](./docs/REQUIREMENTS.md#PHP)
+- [Python](./docs/REQUIREMENTS.md#Python)
+- [Rust](./docs/REQUIREMENTS.md#Rust)
+- [TypeScript](./docs/REQUIREMENTS.md#TypeScript)
 
 ---
 
