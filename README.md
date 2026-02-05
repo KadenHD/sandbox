@@ -13,5 +13,5 @@ A personal playground repository for experimenting with code, testing ideas, and
 Clone the repo and start experimenting:
 
 ```bash
-git clone https://github.com/yourusername/sandbox.git
+git clone https://github.com/KadenHD/sandbox.git
 ```
