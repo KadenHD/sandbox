@@ -8,6 +8,9 @@ Each language implementation follows **exactly the same algorithm**, differing o
 
 ## Handled Languages
 
+- [C](./docs/REQUIREMENTS.md#C)
+- [C++](./docs/REQUIREMENTS.md#C-1)
+- [C#](./docs/REQUIREMENTS.md#c-2)
 - [Java](./docs/REQUIREMENTS.md#Java)
 - [JavaScript](./docs/REQUIREMENTS.md#JavaScript)
 - [PHP](./docs/REQUIREMENTS.md#PHP)
@@ -30,6 +33,7 @@ The benchmark measures the time required to execute a **tight computational loop
 Specifically, it:
 
 - Iterates from `1` to `n`
+- `n` must be `>= 3_000_000`
 - Accumulates the sum of the loop index
 - Outputs the elapsed time in seconds, milliseconds or microseconds
 
@@ -94,7 +98,7 @@ ELSE IF milliseconds >= 1.0 THEN
     unit = "ms"
 ELSE
     result = microseconds
-    unit = "µs"
+    unit = "us"
 END IF
 
 // 7. Print the result
@@ -119,7 +123,7 @@ Each folder contains the benchmark written in a different language.
 
 - Results may vary depending on compiler flags, runtime versions, and hardware.
 - Interpreted and JIT-compiled languages may require warm-up to reach peak performance.
-- This benchmark favors raw loop throughput, not real-world application behavior.
+- This benchmark favors raw loop throughput, not real-world application behavior so this is not 100% representative of each language performances.
 
 ---
 

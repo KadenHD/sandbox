@@ -3,9 +3,9 @@ function main(): void {
 
     /* START */
     const start: number = performance.now();
-    let _total: number = 0;
-    for (let i = 0; i < n; i++) {
-        _total += i;
+    let total: bigint = BigInt(0);
+    for (let i: bigint = BigInt(0); i < n; i++) {
+        total += i;
     }
     const duration: number = performance.now() - start;
     /* END */
@@ -23,10 +23,10 @@ function main(): void {
         unit = "ms";
     } else {
         result = microseconds;
-        unit = "µs";
+        unit = "us";
     }
 
-    console.log(`TypeScript: ${result.toFixed(1)} ${unit}`);
+    console.log(`TypeScript: ${result.toFixed(1)} ${unit} (${total})`);
 }
 
 main();

@@ -24,10 +24,10 @@ function main() {
         $unit = "ms";
     } else {
         $result = $microseconds;
-        $unit = "µs";
+        $unit = "us";
     }
 
-    printf("PHP: %.1f %s\n", $result, $unit);
+    printf("PHP: %.1f %s (%d)\n", $result, $unit, $total);
 }
 
 main();

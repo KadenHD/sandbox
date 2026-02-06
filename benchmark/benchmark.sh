@@ -16,24 +16,33 @@ pre_install() {
     run_in_dir "typescript" npm install --silent
     run_in_dir "typescript" tsc main.ts
     run_in_dir "java" javac Main.java
+    run_in_dir "c" gcc -O3 -march=native -std=c11 main.c -o main
+    run_in_dir "cpp" g++ -O3 -march=native -std=c++17 main.cpp -o main
+    run_in_dir "cs" csc -optimize+ -nologo main.cs
 }
 
 run_benchmark() {
-    N="$1"
-    run_in_dir "python" python main.py "$N"
-    run_in_dir "rust" cargo run --release --quiet -- "$N"
-    run_in_dir "javascript" node main.js "$N"
-    run_in_dir "typescript" node main.js "$N"
-    run_in_dir "java" java Main "$N"
-    run_in_dir "php" php main.php "$N"
+    local P="$1"
+    run_in_dir "python" python main.py "$P"
+    run_in_dir "rust" cargo run --release --quiet -- "$P"
+    run_in_dir "javascript" node main.js "$P"
+    run_in_dir "typescript" node main.js "$P"
+    run_in_dir "java" java Main "$P"
+    run_in_dir "php" php main.php "$P"
+    run_in_dir "c" ./main "$P"
+    run_in_dir "cpp" ./main "$P"
+    run_in_dir "cs" ./main "$P"
+    
 }
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <N>"
+N="${1:-100000000}"
+
+if ! [[ "$N" =~ ^[0-9]+$ ]] || [ "$N" -lt 3000000 ]; then
+    echo "Error: N must be an integer >= 3,000,000"
     exit 1
 fi
 
 echo "<-------START------->"
 pre_install
-run_benchmark "$1"
+run_benchmark "$N"
 echo "<--------END-------->"

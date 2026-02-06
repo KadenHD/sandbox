@@ -4,9 +4,9 @@ public class Main {
 
         /* START */
         long start = System.nanoTime();
-        long _total = 0;
+        long total = 0;
         for (long i = 0; i < n; i++) {
-            _total += i;
+            total += i;
         }
         long duration = System.nanoTime() - start;
         /*  END  */
@@ -25,9 +25,9 @@ public class Main {
             unit = "ms";
         } else {
             result = microseconds;
-            unit = "µs";
+            unit = "us";
         }
 
-        System.out.printf("Java: %.1f %s%n", result, unit);
+        System.out.printf("Java: %.1f %s (%d)%n", result, unit, total);
     }
 }

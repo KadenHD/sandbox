@@ -9,9 +9,9 @@ fn main() {
 
     /* START */
     let start = Instant::now();
-    let mut _total: u64 = 0;
+    let mut total: u64 = 0;
     for i in 0..n {
-        _total += i;
+        total += i;
     }
     let duration = start.elapsed();
     /*  END  */
@@ -30,8 +30,8 @@ fn main() {
         unit = "ms";
     } else {
         result = microseconds;
-        unit = "µs";
+        unit = "us";
     }
 
-    println!("Rust: {:.1} {}", result, unit);
+    println!("Rust: {:.1} {} ({})", result, unit, total);
 }

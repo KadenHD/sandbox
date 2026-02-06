@@ -6,9 +6,9 @@ def main():
 
     """ START """
     start: float = time.perf_counter()
-    _total: int = 0
+    total: int = 0
     for i in range(n):
-        _total += i
+        total += i
     duration: float = time.perf_counter() - start
     """  END  """
 
@@ -21,9 +21,9 @@ def main():
     elif milliseconds >= 1.0:
         result, unit = milliseconds, "ms"
     else:
-        result, unit = microseconds, "µs"
+        result, unit = microseconds, "us"
 
-    print(f"Python: {result:.1f} {unit}")
+    print(f"Python: {result:.1f} {unit} ({total})")
 
 if __name__ == "__main__":
     main()

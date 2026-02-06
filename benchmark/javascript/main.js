@@ -3,9 +3,9 @@ function main() {
 
     /* START */
     const start = performance.now();
-    let _total = 0;
-    for (let i = 0; i < n; i++) {
-        _total += i;
+    let total = 0n;
+    for (let i = 0n; i < n; i++) {
+        total += i;
     }
     const duration = performance.now(); - start;
     /*  END  */
@@ -23,10 +23,10 @@ function main() {
         unit = "ms";
     } else {
         result = microseconds;
-        unit = "µs";
+        unit = "us";
     }
 
-    console.log(`JavaScript: ${result.toFixed(1)} ${unit}`);
+    console.log(`JavaScript: ${result.toFixed(1)} ${unit} (${total})`);
 }
 
 main();
