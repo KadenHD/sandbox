@@ -11,7 +11,6 @@ run_in_dir() {
 }
 
 pre_install() {
-    echo "Pre-install / build steps..."
     run_in_dir "c" gcc -O3 -march=native -std=c11 main.c -o main
     run_in_dir "cpp" g++ -O3 -march=native -std=c++17 main.cpp -o main
     run_in_dir "cs" csc -optimize+ -nologo main.cs
@@ -44,7 +43,5 @@ if ! [[ "$N" =~ ^[0-9]+$ ]] || [ "$N" -lt 3000000 ]; then
     exit 1
 fi
 
-echo "<-------START------->"
 pre_install
 run_benchmark "$N"
-echo "<--------END-------->"

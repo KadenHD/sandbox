@@ -139,3 +139,7 @@ This repository is intended for:
 - Curiosity-driven experimentation
 
 Not for declaring a “best” language.
+
+## Feature Ideas
+
+- Generate a graph
