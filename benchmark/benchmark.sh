@@ -12,27 +12,29 @@ run_in_dir() {
 
 pre_install() {
     echo "Pre-install / build steps..."
-    run_in_dir "rust" cargo build --release --quiet
-    run_in_dir "typescript" npm install --silent
-    run_in_dir "typescript" tsc main.ts
-    run_in_dir "java" javac Main.java
     run_in_dir "c" gcc -O3 -march=native -std=c11 main.c -o main
     run_in_dir "cpp" g++ -O3 -march=native -std=c++17 main.cpp -o main
     run_in_dir "cs" csc -optimize+ -nologo main.cs
+    run_in_dir "go" go build main.go
+    run_in_dir "java" javac Main.java
+    run_in_dir "rust" cargo build --release --quiet
+    run_in_dir "typescript" npm install --silent
+    run_in_dir "typescript" tsc main.ts
 }
 
 run_benchmark() {
     local P="$1"
-    run_in_dir "python" python main.py "$P"
-    run_in_dir "rust" cargo run --release --quiet -- "$P"
-    run_in_dir "javascript" node main.js "$P"
-    run_in_dir "typescript" node main.js "$P"
-    run_in_dir "java" java Main "$P"
-    run_in_dir "php" php main.php "$P"
     run_in_dir "c" ./main "$P"
     run_in_dir "cpp" ./main "$P"
     run_in_dir "cs" ./main "$P"
-    
+    run_in_dir "go" ./main "$P"
+    run_in_dir "java" java Main "$P"
+    run_in_dir "javascript" node main.js "$P"
+    run_in_dir "php" php main.php "$P"
+    run_in_dir "python" python main.py "$P"
+    run_in_dir "ruby" ruby main.rb "$P"
+    run_in_dir "rust" cargo run --release --quiet -- "$P"
+    run_in_dir "typescript" node main.js "$P"
 }
 
 N="${1:-100000000}"

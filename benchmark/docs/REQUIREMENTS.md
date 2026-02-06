@@ -32,6 +32,15 @@ Verify:
 csc -help
 ```
 
+## Go
+
+Install [Go](https://go.dev/doc/install)
+
+Verify:
+
+```bash
+go version
+```
 
 ## Java
 
@@ -72,6 +81,16 @@ Verify:
 
 ```bash
 python --version
+```
+
+## Ruby
+
+Install [Ruby+Devkit](https://www.ruby-lang.org/fr/documentation/installation/)
+
+Verify:
+
+```bash
+ruby -v
 ```
 
 ## Rust

@@ -11,10 +11,12 @@ Each language implementation follows **exactly the same algorithm**, differing o
 - [C](./docs/REQUIREMENTS.md#C)
 - [C++](./docs/REQUIREMENTS.md#C-1)
 - [C#](./docs/REQUIREMENTS.md#c-2)
+- [Go](./docs/REQUIREMENTS.md#Go)
 - [Java](./docs/REQUIREMENTS.md#Java)
 - [JavaScript](./docs/REQUIREMENTS.md#JavaScript)
 - [PHP](./docs/REQUIREMENTS.md#PHP)
 - [Python](./docs/REQUIREMENTS.md#Python)
+- [Ruby](./docs/REQUIREMENTS.md#Ruby)
 - [Rust](./docs/REQUIREMENTS.md#Rust)
 - [TypeScript](./docs/REQUIREMENTS.md#TypeScript)
 

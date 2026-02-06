@@ -1,3 +1,4 @@
+use std::hint::black_box;
 use std::time::Instant;
 use std::env;
 
@@ -11,7 +12,7 @@ fn main() {
     let start = Instant::now();
     let mut total: u64 = 0;
     for i in 0..n {
-        total += i;
+        total = black_box(total + i);
     }
     let duration = start.elapsed();
     /*  END  */
