@@ -4,7 +4,7 @@ APP_NAME := rust-chatroom-websocket
 help:
 	@echo "Available commands:"
 	@echo "  make dev             - Run the application with auto-reload (dev config)"
-	@echo "  make stg             - Run the application in staging environment"
+	@echo "  make stage           - Run the application in staging environment"
 	@echo "  make prod            - Run the application in production environment"
 	@echo "  make build           - Build debug binary"
 	@echo "  make release         - Build release binary"
@@ -16,15 +16,15 @@ help:
 
 .PHONY: dev
 dev:
-	cargo watch -x run
+	APP_ENV=development cargo watch -x run -q
 
-.PHONY: stg
-stg: release
-	./target/release/$(APP_NAME)
+.PHONY: stage
+stage: release
+	APP_ENV=staging ./target/release/$(APP_NAME)
 
 .PHONY: prod
 prod: release
-	./target/release/$(APP_NAME)
+	APP_ENV=production ./target/release/$(APP_NAME)
 
 .PHONY: build
 build:
@@ -36,7 +36,7 @@ release:
 
 .PHONY: test
 test:
-	cargo test
+	cargo test --release -- --test-threads=1 --nocapture
 
 .PHONY: check
 check:

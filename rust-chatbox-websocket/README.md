@@ -18,7 +18,7 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 
 ## Milestones
 
-- manage envs (dev, stg, prod) [❌]
+- manage envs (dev, stg, prod) [✅]
 - handle connections [❌]
 - broadcast messages [❌]
 - basic rooms [❌]
