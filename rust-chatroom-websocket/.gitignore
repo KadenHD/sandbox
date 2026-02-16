@@ -1,5 +1,8 @@
 target/
 .cargo/
+*.profraw
+
+logs/
 
 .env*
 !.env.example

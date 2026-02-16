@@ -5,10 +5,10 @@ pub mod logging;
 pub mod server;
 
 pub fn run() {
+    logging::init();
     let cfg = config::config();
 
-    println!("App: {}", cfg.app_name);
-    println!("Env: {}", cfg.env_name);
-    println!("Listening on {}:{}", cfg.app_host, cfg.app_port);
-    println!("Log Level: {}", cfg.log_level);
+    log::info!("Logging in {} level", cfg.log_level);
+    log::info!("Running app '{}' in {} mode", cfg.app_name, cfg.env_name);
+    log::info!("Listening on {}:{}", cfg.app_host, cfg.app_port);
 }

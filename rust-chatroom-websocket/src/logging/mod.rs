@@ -1,3 +1,3 @@
-pub mod init;
+pub mod logger;
 
-// pub use init::;
+pub use logger::init;

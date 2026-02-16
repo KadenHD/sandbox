@@ -80,5 +80,10 @@ rust-chatroom-websocket/
 │        └── init.rs
 │
 └── tests/
-    └── config_test.rs
+    ├── chat_test.rs
+    ├── config_test.rs
+    ├── db_test.rs
+    ├── logging_test.rs
+    ├── main_test.rs
+    └── server_test.rs
 ```
