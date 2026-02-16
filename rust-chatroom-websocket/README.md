@@ -21,6 +21,13 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 - [dotenvy](https://github.com/allan2/dotenvy) (manage environments variables)
 - [tokio](https://docs.rs/tokio/latest/tokio/) (asynchronous I/O concurrency)
 - [axum](https://docs.rs/axum/latest/axum/) (web application framework)
+- [sqlx](https://docs.rs/sqlx/latest/sqlx/) (async SQL toolkit)
+
+    ```bash
+    cargo install sqlx-cli --no-default-features --features postgres
+    ```
+
+- [include_dir](https://docs.rs/include_dir/latest/include_dir/) (embeds files in rust binary at compile time)
 
 ## Milestones
 
@@ -30,14 +37,20 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 - broadcast messages [✅]
 - basic rooms [✅]
 - message history [✅]
+- persistence of message history [✅]
 
 ## Extensions
 
+- 100% test coverage [❌]
+- better dockerization (include rust, all dev/prod/stage and env vars) [❌]
 - private messages [❌]
 - authentication [❌]
-- persistence of message history [❌]
 
 ## Commands
+
+Execute this in you database: [init.sql](./init.sql)
+
+See the available project commands :
 
 ```bash
 make help
@@ -55,30 +68,35 @@ rust-chatroom-websocket/
 ├── .env.staging
 │
 ├── src/
-│    ├── main.rs
-│    │
-│    ├── config/
-│    │   ├── mod.rs
-│    │   └── settings.rs
-│    │
-│    ├── server/
-│    │   ├── mod.rs
-│    │   ├── router.rs
-│    │   └── websocket.rs
-│    │
-│    ├── chat/
-│    │   ├── mod.rs
-│    │   ├── manager.rs
-│    │   ├── room.rs
-│    │   └── message.rs
-│    │
-│    ├── db/
-│    │   ├── mod.rs
-│    │   └── connection.rs
-│    │
-│    └── logging/
-│        ├── mod.rs
-│        └── logger.rs
+│   ├── main.rs
+│   │
+│   ├── config/
+│   │   ├── mod.rs
+│   │   └── settings.rs
+│   │
+│   ├── server/
+│   │   ├── mod.rs
+│   │   ├── router.rs
+│   │   └── websocket.rs
+│   │
+│   ├── chat/
+│   │   ├── mod.rs
+│   │   ├── manager.rs
+│   │   ├── room.rs
+│   │   └── message.rs
+│   │
+│   ├── db/
+│   │   ├── mod.rs
+│   │   └── connection.rs
+│   │
+│   └── logging/
+│       ├── mod.rs
+│       └── logger.rs
+│
+├── static/
+│   ├── chat.js
+│   ├── index.html
+│   └── styles.css
 │
 └── tests/
     ├── chat_test.rs

@@ -13,6 +13,7 @@ help:
 	@echo "  make check           - Check code without building"
 	@echo "  make fmt             - Format code"
 	@echo "  make lint            - Run clippy"
+	@echo "  make docker          - Create docker container for DB"
 	@echo "  make clean           - Clean target directory"
 
 .PHONY: dev
@@ -54,6 +55,10 @@ fmt:
 .PHONY: lint
 lint:
 	cargo clippy -- -D warnings
+
+.PHONY: docker
+docker:
+	docker compose up -d
 
 .PHONY: clean
 clean:

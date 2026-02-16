@@ -2,7 +2,6 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-/// Represents a chat message
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ChatMessage {
     pub id: Uuid,
@@ -16,6 +15,15 @@ impl ChatMessage {
         Self {
             id: Uuid::new_v4(),
             sender: sender.into(),
+            content: content.into(),
+            timestamp: Utc::now(),
+        }
+    }
+
+    pub fn system(content: impl Into<String>) -> Self {
+        Self {
+            id: Uuid::new_v4(),
+            sender: "System".to_string(),
             content: content.into(),
             timestamp: Utc::now(),
         }

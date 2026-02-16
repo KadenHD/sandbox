@@ -1,41 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Rust Chatroom</title>
-  <style>
-    body { font-family: sans-serif; margin: 2rem; }
-    #messages { list-style: none; padding: 0; max-width: 600px; }
-    #messages li { padding: 0.5rem; margin-bottom: 0.2rem; border-radius: 4px; }
-    #messages li.system { background-color: #eee; color: #555; font-style: italic; }
-    #messages li.user { background-color: #def; }
-    #messages li.self { background-color: #bdf; font-weight: bold; }
-    #inputArea { margin-top: 1rem; }
-    input { padding: 0.5rem; width: 400px; }
-    button { padding: 0.5rem; }
-  </style>
-</head>
-<body>
+let ws = null;
+let connected = false;
+let isClosing = false;
 
-<h1>Rust Chatroom</h1>
-
-<label>
-  Room: <input type="text" id="room" value="general">
-</label>
-<label>
-  Username: <input type="text" id="username" value="alice">
-</label>
-<button id="connectBtn">Connect</button>
-
-<ul id="messages"></ul>
-
-<div id="inputArea" style="display:none;">
-  <input type="text" id="msgInput" placeholder="Type a message">
-  <button id="sendBtn">Send</button>
-</div>
-
-<script>
-let ws;
 let usernameInput = document.getElementById("username");
 let roomInput = document.getElementById("room");
 let connectBtn = document.getElementById("connectBtn");
@@ -44,21 +10,50 @@ let msgInput = document.getElementById("msgInput");
 let sendBtn = document.getElementById("sendBtn");
 let inputArea = document.getElementById("inputArea");
 
+function scrollToBottom() {
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function setConnectedUI(state) {
+  connected = state;
+  connectBtn.textContent = state ? "Disconnect" : "Connect";
+  inputArea.style.display = state ? "block" : "none";
+  usernameInput.disabled = state;
+  roomInput.disabled = state;
+}
+
 connectBtn.addEventListener("click", () => {
+  if (!connected) {
+    connect();
+  } else {
+    disconnect();
+  }
+});
+
+function connect() {
+  if (ws) return;
+
   const room = roomInput.value.trim();
   const username = usernameInput.value.trim();
-  if (!room || !username) return alert("Enter room and username");
-  
+  if (!room || !username) {
+    alert("Enter room and username");
+    return;
+  }
+
+  messages.innerHTML = "";
+  isClosing = false;
+
   ws = new WebSocket(`ws://localhost:8080/ws/${room}/${username}`);
 
   ws.onopen = () => {
+    setConnectedUI(true);
     addSystemMessage(`Connected to room "${room}" as "${username}"`);
-    inputArea.style.display = "block";
   };
 
   ws.onmessage = (event) => {
     const msg = JSON.parse(event.data);
-    if (msg.sender === "system") {
+
+    if (msg.sender.toLowerCase() === "system") {
       addSystemMessage(msg.content);
     } else if (msg.sender === username) {
       addUserMessage(msg.sender, msg.content, true);
@@ -69,18 +64,44 @@ connectBtn.addEventListener("click", () => {
 
   ws.onclose = () => {
     addSystemMessage("Disconnected from server");
-    inputArea.style.display = "none";
+
+    ws = null;
+    setConnectedUI(false);
   };
-});
+
+  ws.onerror = () => {
+    addSystemMessage("Connection error");
+  };
+}
+
+function disconnect() {
+  if (!ws) {
+    setConnectedUI(false);
+    return;
+  }
+
+  try {
+    ws.close();
+  } catch (e) {
+    console.warn("Socket already closed");
+  }
+
+  ws = null;
+  setConnectedUI(false);
+}
 
 sendBtn.addEventListener("click", sendMessage);
+
 msgInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
+  if (e.key === "Enter") {
+    sendMessage();
+  }
 });
 
 function sendMessage() {
   const text = msgInput.value.trim();
-  if (!text) return;
+  if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+
   ws.send(text);
   msgInput.value = "";
 }
@@ -90,17 +111,13 @@ function addSystemMessage(text) {
   li.textContent = text;
   li.className = "system";
   messages.appendChild(li);
-  messages.scrollTop = messages.scrollHeight;
+  scrollToBottom();
 }
 
-function addUserMessage(sender, text, self=false) {
+function addUserMessage(sender, text, self = false) {
   const li = document.createElement("li");
   li.textContent = `${sender}: ${text}`;
   li.className = self ? "self" : "user";
   messages.appendChild(li);
-  messages.scrollTop = messages.scrollHeight;
+  scrollToBottom();
 }
-</script>
-
-</body>
-</html>

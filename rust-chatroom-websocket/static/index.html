@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rust Chatroom</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<h1>Rust Chatroom</h1>
+
+<label>
+  Room: <input type="text" id="room" value="general">
+</label>
+<label>
+  Username: <input type="text" id="username" value="alice">
+</label>
+<button id="connectBtn">Connect</button>
+
+<ul id="messages"></ul>
+
+<div id="inputArea" style="display:none;">
+  <input type="text" id="msgInput" placeholder="Type a message">
+  <button id="sendBtn">Send</button>
+</div>
+
+<script src="/static/chat.js"></script>
+</body>
+</html>

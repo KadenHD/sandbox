@@ -1,10 +1,9 @@
 pub mod router;
 pub mod websocket;
 
-use crate::{config, logging};
-use crate::chat::manager::ChatManager;
-
+use crate::{chat::manager::ChatManager, config, logging};
 use axum::Router;
+use sqlx::PgPool;
 use std::sync::Arc;
 
 #[derive(Clone)]
@@ -16,21 +15,19 @@ pub async fn run() -> anyhow::Result<()> {
     let cfg = config::config();
     logging::init(&cfg.log_level, None);
 
-    let chat_manager = Arc::new(ChatManager::new());
+    log::info!("Connecting to PostgreSQL...");
+    let db_pool = PgPool::connect(&cfg.database_url).await?;
+    let db_pool = Arc::new(db_pool);
+    log::info!("Connected to PostgreSQL");
 
-    let state = AppState {
-        chat_manager,
-    };
+    let chat_manager = Arc::new(ChatManager::new(db_pool.clone()));
+    let state = AppState { chat_manager };
 
-    let app: Router = router::create_router(state.clone());
+    let app: Router = router::create_router(state);
 
-    let listener = tokio::net::TcpListener::bind(
-        format!("{}:{}", cfg.app_host, cfg.app_port)
-    ).await?;
-
-    log::info!("Logging in '{}' level", cfg.log_level);
-    log::info!("Running app '{}' in '{}' mode", cfg.app_name, cfg.env_name);
-    log::info!("Listening on '{}:{}'", cfg.app_host, cfg.app_port);
+    let listener =
+        tokio::net::TcpListener::bind(format!("{}:{}", cfg.app_host, cfg.app_port)).await?;
+    log::info!("Server running on {}:{}", cfg.app_host, cfg.app_port);
 
     axum::serve(listener, app).await?;
 
