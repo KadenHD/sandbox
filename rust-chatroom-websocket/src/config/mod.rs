@@ -1,3 +1,3 @@
 pub mod settings;
 
-pub use settings::{config, Config};
+pub use settings::{Config, config};

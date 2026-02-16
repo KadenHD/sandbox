@@ -1,3 +1,3 @@
 pub mod logger;
 
-pub use logger::{init, Logging};
+pub use logger::{Logging, init};

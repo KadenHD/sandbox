@@ -1,4 +1,4 @@
-use flexi_logger::{Logger, FileSpec, Duplicate, Criterion, Naming, Cleanup, Age};
+use flexi_logger::{Age, Cleanup, Criterion, Duplicate, FileSpec, Logger, Naming};
 
 /// Configuration for file-based logging.
 pub struct Logging {

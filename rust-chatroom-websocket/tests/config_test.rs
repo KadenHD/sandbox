@@ -1,4 +1,4 @@
-use rust_chatroom_websocket::config::{config, Config};
+use rust_chatroom_websocket::config::{Config, config};
 use std::{env, fs};
 
 /// Helper to clear all relevant env vars before each test
