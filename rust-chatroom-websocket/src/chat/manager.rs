@@ -1,8 +1,7 @@
+use crate::chat::room::ChatRoom;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::RwLock;
-
-use super::room::ChatRoom;
 
 #[derive(Clone)]
 pub struct ChatManager {
@@ -18,7 +17,6 @@ impl ChatManager {
 
     pub async fn get_or_create_room(&self, room_name: &str) -> ChatRoom {
         let mut rooms = self.rooms.write().await;
-
         rooms
             .entry(room_name.to_string())
             .or_insert_with(|| ChatRoom::new(room_name.to_string()))

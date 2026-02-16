@@ -29,7 +29,7 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 - handle connections [✅]
 - broadcast messages [✅]
 - basic rooms [✅]
-- message history [❌]
+- message history [✅]
 
 ## Extensions
 
