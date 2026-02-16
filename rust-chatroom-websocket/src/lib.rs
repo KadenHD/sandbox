@@ -6,8 +6,8 @@ pub mod server;
 
 /// Starts the application
 pub fn run() {
-    logging::init();
     let cfg = config::config();
+    logging::init(&cfg.log_level);
 
     log::info!("Logging in {} level", cfg.log_level);
     log::info!("Running app '{}' in {} mode", cfg.app_name, cfg.env_name);
