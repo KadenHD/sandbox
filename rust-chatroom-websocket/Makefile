@@ -8,7 +8,8 @@ help:
 	@echo "  make prod            - Run the application in production environment"
 	@echo "  make build           - Build debug binary"
 	@echo "  make release         - Build release binary"
-	@echo "  make test            - Run tests"
+	@echo "  make tests           - Run tests"
+	@echo "  make coverage        - Show the code coverage of the tests"
 	@echo "  make check           - Check code without building"
 	@echo "  make fmt             - Format code"
 	@echo "  make lint            - Run clippy"
@@ -34,9 +35,13 @@ build:
 release:
 	cargo build --release
 
-.PHONY: test
-test:
+.PHONY: tests
+tests:
 	cargo test --release -- --test-threads=1 --nocapture
+
+.PHONY: coverage
+coverage:
+	cargo tarpaulin --exclude-files src/main.rs
 
 .PHONY: check
 check:
