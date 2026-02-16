@@ -1,5 +1,5 @@
-pub mod message;
 pub mod room;
+pub mod manager;
+pub mod message;
 
-// pub use message::;
-// pub use room::;
+pub use message::ChatMessage;

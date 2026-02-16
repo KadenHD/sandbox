@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rust Chatroom</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    #messages { list-style: none; padding: 0; max-width: 600px; }
+    #messages li { padding: 0.5rem; margin-bottom: 0.2rem; border-radius: 4px; }
+    #messages li.system { background-color: #eee; color: #555; font-style: italic; }
+    #messages li.user { background-color: #def; }
+    #messages li.self { background-color: #bdf; font-weight: bold; }
+    #inputArea { margin-top: 1rem; }
+    input { padding: 0.5rem; width: 400px; }
+    button { padding: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<h1>Rust Chatroom</h1>
+
+<label>
+  Room: <input type="text" id="room" value="general">
+</label>
+<label>
+  Username: <input type="text" id="username" value="alice">
+</label>
+<button id="connectBtn">Connect</button>
+
+<ul id="messages"></ul>
+
+<div id="inputArea" style="display:none;">
+  <input type="text" id="msgInput" placeholder="Type a message">
+  <button id="sendBtn">Send</button>
+</div>
+
+<script>
+let ws;
+let usernameInput = document.getElementById("username");
+let roomInput = document.getElementById("room");
+let connectBtn = document.getElementById("connectBtn");
+let messages = document.getElementById("messages");
+let msgInput = document.getElementById("msgInput");
+let sendBtn = document.getElementById("sendBtn");
+let inputArea = document.getElementById("inputArea");
+
+connectBtn.addEventListener("click", () => {
+  const room = roomInput.value.trim();
+  const username = usernameInput.value.trim();
+  if (!room || !username) return alert("Enter room and username");
+  
+  ws = new WebSocket(`ws://localhost:8080/ws/${room}/${username}`);
+
+  ws.onopen = () => {
+    addSystemMessage(`Connected to room "${room}" as "${username}"`);
+    inputArea.style.display = "block";
+  };
+
+  ws.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+    if (msg.sender === "system") {
+      addSystemMessage(msg.content);
+    } else if (msg.sender === username) {
+      addUserMessage(msg.sender, msg.content, true);
+    } else {
+      addUserMessage(msg.sender, msg.content, false);
+    }
+  };
+
+  ws.onclose = () => {
+    addSystemMessage("Disconnected from server");
+    inputArea.style.display = "none";
+  };
+});
+
+sendBtn.addEventListener("click", sendMessage);
+msgInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+function sendMessage() {
+  const text = msgInput.value.trim();
+  if (!text) return;
+  ws.send(text);
+  msgInput.value = "";
+}
+
+function addSystemMessage(text) {
+  const li = document.createElement("li");
+  li.textContent = text;
+  li.className = "system";
+  messages.appendChild(li);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function addUserMessage(sender, text, self=false) {
+  const li = document.createElement("li");
+  li.textContent = `${sender}: ${text}`;
+  li.className = self ? "self" : "user";
+  messages.appendChild(li);
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
+
+</body>
+</html>

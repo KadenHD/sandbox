@@ -20,16 +20,15 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 - [flexi_logger](https://docs.rs/flexi_logger/latest/flexi_logger/) (logging system CLI/Files)
 - [dotenvy](https://github.com/allan2/dotenvy) (manage environments variables)
 - [tokio](https://docs.rs/tokio/latest/tokio/) (asynchronous I/O concurrency)
-- [tokio-tungstenite](https://docs.rs/tokio-tungstenite/latest/tokio_tungstenite/) (asynchronous websocket usage)
 - [axum](https://docs.rs/axum/latest/axum/) (web application framework)
 
 ## Milestones
 
 - manage envs (dev, stg, prod) [✅]
 - use a logging system (info, debug, warn...) [✅]
-- handle connections [❌]
-- broadcast messages [❌]
-- basic rooms [❌]
+- handle connections [✅]
+- broadcast messages [✅]
+- basic rooms [✅]
 - message history [❌]
 
 ## Extensions
@@ -69,6 +68,7 @@ rust-chatroom-websocket/
 │    │
 │    ├── chat/
 │    │   ├── mod.rs
+│    │   ├── manager.rs
 │    │   ├── room.rs
 │    │   └── message.rs
 │    │
@@ -85,6 +85,5 @@ rust-chatroom-websocket/
     ├── config_test.rs
     ├── db_test.rs
     ├── logging_test.rs
-    ├── main_test.rs
     └── server_test.rs
 ```

@@ -1,5 +1,6 @@
-use rust_chatroom_websocket::run;
+use rust_chatroom_websocket::server::run;
 
-fn main() {
-    run();
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    run().await
 }
