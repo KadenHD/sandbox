@@ -1,6 +1,5 @@
 use dotenvy::from_filename;
-use std::env;
-use std::sync::LazyLock;
+use std::{env, sync::LazyLock};
 
 /// Application configuration loaded from environment variables.
 pub struct Config {
