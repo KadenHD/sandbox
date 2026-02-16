@@ -4,6 +4,7 @@ pub mod db;
 pub mod logging;
 pub mod server;
 
+/// Starts the application
 pub fn run() {
     logging::init();
     let cfg = config::config();

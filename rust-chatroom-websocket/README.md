@@ -6,8 +6,8 @@ Real-time multi-user chat using WebSockets. Browser-based front end with a Rust 
 
 - Asynchronous programming
 - WebSockets
-- message broadcasting
-- concurrency
+- Message broadcasting
+- Concurrency
 
 ## Tools
 
