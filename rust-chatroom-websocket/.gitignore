@@ -2,6 +2,7 @@ target/
 .cargo/
 *.profraw
 
+.sqlx/
 logs/
 
 .env*
